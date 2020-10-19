@@ -3,7 +3,6 @@ package ru.cdek.employeeslist.ui.main
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_speciality.*
-import kotlinx.android.synthetic.main.item_speciality.view.*
 import ru.cdek.employeeslist.R
 import ru.cdek.employeeslist.data.db.entity.SpecialityEntry
 

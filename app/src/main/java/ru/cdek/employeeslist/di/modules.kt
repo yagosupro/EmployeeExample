@@ -10,6 +10,8 @@ import ru.cdek.employeeslist.data.network.NetworkDataSource
 import ru.cdek.employeeslist.data.network.NetworkDataSourceImpl
 import ru.cdek.employeeslist.data.repository.Repository
 import ru.cdek.employeeslist.data.repository.RepositoryImpl
+import ru.cdek.employeeslist.ui.detail.DetailViewModel
+import ru.cdek.employeeslist.ui.employee.EmployeeViewModel
 import ru.cdek.employeeslist.ui.main.MainViewModel
 
 private val myModule = module {
@@ -17,7 +19,10 @@ private val myModule = module {
 
     viewModel {
         MainViewModel(get())
+
     }
+    viewModel { EmployeeViewModel(get()) }
+    viewModel { DetailViewModel(get()) }
     single<Repository> {
         RepositoryImpl(get(), get())
     }
@@ -26,8 +31,6 @@ private val myModule = module {
     single { EmployeeDatabase(get()) }
     single { get<EmployeeDatabase>().employeeDAO() }
 //    single { get<EmployeeDatabase>().specialityDAO() }
-
-
 
 
 }

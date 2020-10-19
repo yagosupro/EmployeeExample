@@ -1,0 +1,28 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <data>
+
+    <variable
+      name="view"
+      type="android.view.View" />
+
+    <variable
+      name="viewModel"
+      type="ru.cdek.employeeslist.ui.employee.EmployeeViewModel" />
+  </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+  android:id="@+id/employee"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

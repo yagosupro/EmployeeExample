@@ -8,6 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
@@ -55,6 +58,9 @@ class MainFragment : Fragment() {
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? SpecialityItem)?.let {
                 println(it.speciality.specialtyId)
+                val bundle=Bundle()
+                bundle.putLong("idSpeciality",it.speciality.specialtyId)
+                findNavController().navigate(R.id.employeeFragment,bundle)
             }
         }
     }
@@ -64,7 +70,10 @@ class MainFragment : Fragment() {
             val speciality = viewModel.getSpeciality.await()
             speciality.observe(viewLifecycleOwner, Observer { it ->
                 if (it == null) return@Observer
-                initRecyclerView(it)
+                if (it.isNotEmpty()){
+                    initRecyclerView(it)
+                }
+
                 //101
             })
             var idSpeciality = 101

@@ -9,5 +9,22 @@
     android:id="@+id/mainFragment"
     android:name="ru.cdek.employeeslist.ui.main.MainFragment"
     android:label="main_fragment"
-    tools:layout="@layout/main_fragment" />
+    tools:layout="@layout/main_fragment" >
+    <action
+      android:id="@+id/action_mainFragment_to_employeeFragment2"
+      app:destination="@id/employeeFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/employeeFragment"
+    android:name="ru.cdek.employeeslist.ui.employee.EmployeeFragment"
+    android:label="EmployeeFragment" >
+
+    <action
+      android:id="@+id/action_employeeFragment_to_detailFragment"
+      app:destination="@id/detailFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/detailFragment"
+    android:name="ru.cdek.employeeslist.ui.detail.DetailFragment"
+    android:label="DetailFragment" />
 </navigation>

@@ -15,6 +15,8 @@ interface Repository {
 
     suspend fun getEmployees(): LiveData<List<EmployeeEntry>>
 
+    suspend fun getEmployeesById(id: Long):LiveData<List<EmployeeWithSpeciality>>
+
 //    suspend fun getEmployeesFromSpecialityId(id:Long): LiveData<EmployeeWithSpeciality>
 
     suspend fun getAllEmployeeWithSpeciality(): LiveData<List<EmployeeWithSpeciality>>

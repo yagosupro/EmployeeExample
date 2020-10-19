@@ -46,6 +46,12 @@ class RepositoryImpl(
         }
     }
 
+    override suspend fun getEmployeesById(id: Long): LiveData<List<EmployeeWithSpeciality>>{
+        return withContext(Dispatchers.IO) {
+            employeeDAO.getEmployeeById(id)
+        }
+    }
+
     override suspend fun getAllEmployeeWithSpeciality(): LiveData<List<EmployeeWithSpeciality>> {
         return withContext(Dispatchers.IO) {
             employeeDAO.getAllEmployeeWithSpeciality()

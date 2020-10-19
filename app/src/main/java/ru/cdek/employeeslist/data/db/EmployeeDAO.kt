@@ -57,6 +57,9 @@ interface EmployeeDAO {
     @Query("SELECT * FROM employee_table")
     fun getAllEmployeeWithSpeciality(): LiveData<List<EmployeeWithSpeciality>>
 
+    @Query("SELECT * FROM employee_table WHERE employee_id=:id")
+    fun getEmployeeById(id:Long):LiveData<List<EmployeeWithSpeciality>>
+
     @Query("SELECT * FROM speciality_table")
     fun getAllSpecialityFromEmployee(): LiveData<List<SpecialityWithEmployee>>
 
