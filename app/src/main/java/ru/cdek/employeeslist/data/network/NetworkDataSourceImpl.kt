@@ -16,6 +16,7 @@ class NetworkDataSourceImpl(private val api: Api) : NetworkDataSource {
             val response = api.fetchData().await()
             _downloadedEmployees.postValue(response.employeeResponses)
         } catch (e: Exception) {
+            //по хорошему тут обработчик нормальный сделать, не понятно что возвращает сервер
             Log.e("Connectivity", e.message.toString())
         }
 

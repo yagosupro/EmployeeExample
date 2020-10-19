@@ -8,8 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -34,16 +32,9 @@ class MainFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
         binding.viewModel = viewModel
+        bindUI()
         return binding.root
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        bindUI()
-
-    }
-
 
     private fun initRecyclerView(items: List<SpecialityEntry>) {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
@@ -58,46 +49,21 @@ class MainFragment : Fragment() {
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? SpecialityItem)?.let {
                 println(it.speciality.specialtyId)
-                val bundle=Bundle()
-                bundle.putLong("idSpeciality",it.speciality.specialtyId)
-                findNavController().navigate(R.id.employeeFragment,bundle)
+                val bundle = Bundle()
+                bundle.putLong("idSpeciality", it.speciality.specialtyId)
+                findNavController().navigate(R.id.employeeFragment, bundle)
             }
         }
     }
 
-    fun bindUI() {
+    private fun bindUI() {
         lifecycleScope.launch(Dispatchers.Main) {
             val speciality = viewModel.getSpeciality.await()
             speciality.observe(viewLifecycleOwner, Observer { it ->
                 if (it == null) return@Observer
-                if (it.isNotEmpty()){
+                if (it.isNotEmpty()) {
                     initRecyclerView(it)
                 }
-
-                //101
-            })
-            var idSpeciality = 101
-            val employeeJoin = viewModel.employeeWithSpeciality.await()
-            employeeJoin.observe(viewLifecycleOwner, Observer { it ->
-                if (it == null) return@Observer
-                println(it)
-            })
-
-            val specialityJoin = viewModel.getSpecialityWithEmployee.await()
-            specialityJoin.observe(viewLifecycleOwner, Observer { it ->
-                if (it == null) return@Observer
-                println(it)
-            })
-            val employeeById = viewModel.getEmployeeBySpeciality.await()
-            employeeById.observe(viewLifecycleOwner, Observer { it ->
-                if (it == null) return@Observer
-                println(it)
-            })
-            val employee = viewModel.getEmployee.await()
-            employee.observe(viewLifecycleOwner, Observer { it ->
-                if (it == null) return@Observer
-
-                //101
             })
         }
     }

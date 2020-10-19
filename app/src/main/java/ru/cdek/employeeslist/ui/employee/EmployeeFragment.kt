@@ -30,16 +30,11 @@ class EmployeeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.employee_fragment, container, false)
         binding.viewModel = viewModel
+        bindUI( )
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        bindUI( )
-    }
-
-    fun bindUI() {
+    private fun bindUI() {
         lifecycleScope.launch(Dispatchers.Main) {
             viewModel.specialityId= arguments?.getLong("idSpeciality")!!
             val speciality = viewModel.getEmployeeBySpecialityId.await()

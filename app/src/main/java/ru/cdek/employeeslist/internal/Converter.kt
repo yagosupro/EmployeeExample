@@ -10,21 +10,26 @@ import java.util.*
 
 
 fun changeRegistr(string: String): String {
-        val array = string.toCharArray()
-        array.forEachIndexed { index, char ->
-            when {
-                (index == 0) -> array[index] = char.toUpperCase()
-                else -> array[index] = char.toLowerCase()
-            }
+    val array = string.toCharArray()
+    array.forEachIndexed { index, char ->
+        when {
+            (index == 0) -> array[index] = char.toUpperCase()
+            else -> array[index] = char.toLowerCase()
         }
-        return String(array)
     }
+    return String(array)
+}
 
 @SuppressLint("SimpleDateFormat")
 fun formatDate(birthday: String?): String? {
     return try {
+        if ("[0-9]{1,2}(/|-)[0-9]{1,2}(/|-)[0-9]{4}".toRegex().matches(birthday.toString())) {
+            val parsers = SimpleDateFormat("dd-MM-yyyy")
+            val formatters = SimpleDateFormat("dd.MM.yyyy")
+            return formatters.format(parsers.parse(birthday))
+        }
         val parser = SimpleDateFormat("yyyy-dd-MM")
-        val formatter = SimpleDateFormat("dd.MM.yyyy г")
+        val formatter = SimpleDateFormat("dd.MM.yyyy")
         formatter.format(parser.parse(birthday))
     } catch (e: Exception) {
         ""
@@ -34,7 +39,7 @@ fun formatDate(birthday: String?): String? {
 @SuppressLint("SimpleDateFormat")
 fun calculateAge(birthday: String?): String {
     return try {
-        val parser = SimpleDateFormat("yyyy-dd-MM")
+        val parser = SimpleDateFormat("dd.MM.yyyy")
         val birthdayDate: Date = parser.parse(birthday)
         val now = Date()
         val formatter: DateFormat = SimpleDateFormat("yyyyMMdd")
@@ -55,12 +60,12 @@ fun convertToValidData(employeeResponses: List<EmployeeResponse>): ArrayList<Emp
         employeeEntry.surName = employee.surName?.let { changeRegistr(it) }
         employeeEntry.birthday = formatDate(employee.birthday)
         employeeEntry.avatarUrl = employee.avatarUrl
-        employeeEntry.age = calculateAge(employee.birthday)
+        employeeEntry.age = calculateAge(employeeEntry.birthday)
 
         employee.specialityResponse?.forEach() { speciality ->
             val specialityEntry: SpecialityEntry? = SpecialityEntry()
-            specialityEntry!!.specialtyId= speciality.specialtyId!!
-            specialityEntry.name=speciality.name
+            specialityEntry!!.specialtyId = speciality.specialtyId!!
+            specialityEntry.name = speciality.name
             employeeEntry.speciality?.add(specialityEntry!!)
         }
         employeesEntryList.add(employeeEntry)

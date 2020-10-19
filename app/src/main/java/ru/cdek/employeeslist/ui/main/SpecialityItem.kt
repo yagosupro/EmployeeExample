@@ -9,7 +9,7 @@ import ru.cdek.employeeslist.data.db.entity.SpecialityEntry
 class SpecialityItem(val speciality: SpecialityEntry) : Item() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.apply {
-            textView_name.text=speciality.name
+            textView_name.text = speciality.name
         }
     }
 

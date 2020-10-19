@@ -28,17 +28,11 @@ class DetailFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
         binding.viewModel = viewModel
+        bindUI()
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        bindUI()
-
-    }
-
-    fun bindUI() {
+    private fun bindUI() {
         lifecycleScope.launch(Dispatchers.Main) {
             viewModel.employeeId = arguments?.getLong("idEmployee")!!
             val employee = viewModel.getEmployeeById.await()
@@ -48,7 +42,8 @@ class DetailFragment : Fragment() {
                 textView_name.text=it[0].employeeEntry.name
                 textView_surName.text=it[0].employeeEntry.surName
                 textView_speciality.text=it[0].specialitys[0].name
-                textView_birthday.text=it[0].employeeEntry.birthday
+                if (it[0].employeeEntry.birthday!!.isNotEmpty())
+                textView_birthday.text=it[0].employeeEntry.birthday + " г"
                 if (it[0].employeeEntry.age!!.isNotEmpty())
                 textView_age.text=it[0].employeeEntry.age+" лет"
 

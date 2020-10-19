@@ -10,7 +10,7 @@ import ru.cdek.employeeslist.data.db.entity.*
 import ru.cdek.employeeslist.data.network.NetworkDataSource
 import ru.cdek.employeeslist.data.network.response.EmployeeResponse
 import ru.cdek.employeeslist.internal.convertToValidData
-import java.util.ArrayList
+import java.util.*
 
 class RepositoryImpl(
     private val networkDataSource: NetworkDataSource,
@@ -40,29 +40,11 @@ class RepositoryImpl(
         }
     }
 
-    override suspend fun getEmployees(): LiveData<List<EmployeeEntry>> {
-        return withContext(Dispatchers.IO) {
-            employeeDAO.getAllEmployee()
-        }
-    }
-
     override suspend fun getEmployeesById(id: Long): LiveData<List<EmployeeWithSpeciality>>{
         return withContext(Dispatchers.IO) {
             employeeDAO.getEmployeeById(id)
         }
     }
-
-    override suspend fun getAllEmployeeWithSpeciality(): LiveData<List<EmployeeWithSpeciality>> {
-        return withContext(Dispatchers.IO) {
-            employeeDAO.getAllEmployeeWithSpeciality()
-        }
-    }
-
-//    override suspend fun getEmployeesFromSpecialityId(id: Long): LiveData<EmployeeWithSpeciality> {
-//        return withContext(Dispatchers.IO){
-//            employeeDAO.getEmployeeFromSpeciality(id)
-//        }
-//    }
 
 
     override suspend fun getSpeciality(): LiveData<out List<SpecialityEntry>> {
@@ -70,12 +52,6 @@ class RepositoryImpl(
             employeeDAO.getAllSpeciality()
         }
 
-    }
-
-    override suspend fun getAllSpecialityWithEmployee(): LiveData<List<SpecialityWithEmployee>> {
-        return withContext(Dispatchers.IO) {
-            employeeDAO.getAllSpecialityFromEmployee()
-        }
     }
 
     override suspend fun getEmployeeBySpeciality(idSpeciality:Long): LiveData<List<SpecialityWithEmployee>> {
@@ -92,7 +68,6 @@ class RepositoryImpl(
             for (speciality in employee.speciality!!) {
                 var specialityId = employeeDAO.saveSpeciality(speciality)
                 joinList.add(EmployeeSpecialityJoin(employeeId, specialityId))
-//                employeeDAO.insertEmployeeSpecialityJoin(EmployeeSpecialityJoin(employeeId,specialityId))            }
             }
         }
 

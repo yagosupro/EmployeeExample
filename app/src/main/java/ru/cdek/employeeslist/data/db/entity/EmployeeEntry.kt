@@ -99,29 +99,3 @@ class SpecialityWithEmployee {
     )
     var employees: List<EmployeeEntry> = arrayListOf()
 }
-
-//@Entity(primaryKeys = ["employeeId", "specialityId"])
-//data class EmployeeSpecialityCrossRef(
-//    val employeeId: String,
-//    val specialityId: String
-//)
-//
-//data class EmployeeWithSpeciality(
-//    @Embedded val employeeEntry: EmployeeEntry,
-//    @Relation(
-//        parentColumn = "employeeId",
-//        entityColumn = "specialityId",
-//        associateBy = Junction(EmployeeSpecialityCrossRef::class)
-//    )
-//    val speciality: List<SpecialityEntry>
-//)
-//
-//data class SpecialityWithEmployee(
-//    @Embedded val employeeEntry: EmployeeEntry,
-//    @Relation(
-//        parentColumn = "specialityId",
-//        entityColumn = "employeeId",
-//        associateBy = Junction(EmployeeSpecialityCrossRef::class)
-//    )
-//    val employee: List<EmployeeEntry>
-//)
